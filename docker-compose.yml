@@ -3,7 +3,7 @@ services:
     image: ankane/pgvector
     container_name: scentbot-db
     environment:
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: scentbot
     ports:
       - "5432:5432"
