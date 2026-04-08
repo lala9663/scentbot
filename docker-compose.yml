@@ -1,0 +1,32 @@
+services:
+  db:
+    image: ankane/pgvector
+    container_name: scentbot-db
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: scentbot
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: scentbot-backend
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+
+  frontend:
+    build: ./frontend
+    container_name: scentbot-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
